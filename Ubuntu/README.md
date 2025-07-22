@@ -53,12 +53,11 @@ ufw status numbered
    ```
    Пример содержимого:
    ```nginx
-   ```nginx
    server {
       listen 80;
       server_name example.com;
-      root /usr/share/nginx/example;
-
+      root /var/www/example;
+      
       index index.html;
 
       access_log /var/log/nginx/example_access.log;
@@ -78,7 +77,6 @@ ufw status numbered
          allow 127.0.0.1;        # Разрешает доступ только с локального хоста
          deny all;               # Блокирует все остальные подключения
       }
-
    }
    ```
 
