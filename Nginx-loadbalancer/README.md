@@ -5,20 +5,18 @@
 
 ## Пример балансировки нагрузки (round robin)
 ```nginx
-http {
-    upstream backend {
-        server 10.100.10.1:8888;
-        server 10.100.10.2:8888;
-        server 10.100.10.3:8888;
-    }
+upstream backend {
+    server 10.100.10.1:8888;
+    server 10.100.10.2:8888;
+    server 10.100.10.3:8888;
+}
 
-    server {
-        listen 80;
-        server_name example.com;
+server {
+    listen 80;
+    server_name example.com;
 
-        location / {
-            proxy_pass http://backend;
-        }
+    location / {
+        proxy_pass http://backend;
     }
 }
 ```
