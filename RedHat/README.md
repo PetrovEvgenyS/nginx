@@ -53,18 +53,30 @@ firewall-cmd --reload && firewall-cmd --list-all
    Пример содержимого:
    ```nginx
    server {
-       listen 80;
-       server_name example.com;
-       root /usr/share/nginx/example;
+      listen 80;
+      server_name example.com;
+      root /usr/share/nginx/example;
 
-       index index.html;
+      index index.html;
 
-       access_log /var/log/nginx/example_access.log;
-       error_log /var/log/nginx/example_error.log;
+      access_log /var/log/nginx/example_access.log;
+      error_log /var/log/nginx/example_error.log;
 
-       location / {
-           try_files $uri $uri/ =404;
-       }
+      location / {
+         try_files $uri $uri/ =404; # Проверка существования файлов и директорий, иначе 404
+      }
+
+      error_page 404 /404.html;     # Настройка страницы ошибки 404
+      location = /404.html {
+         root /var/www/html;        # Директория, где находится файл ошибки 404
+      }
+
+      location /basic_status {
+         stub_status;            # Включает модуль статуса
+         allow 127.0.0.1;        # Разрешает доступ только с локального хоста
+         deny all;               # Блокирует все остальные подключения
+      }
+
    }
    ```
 2. Проверьте конфигурацию:
